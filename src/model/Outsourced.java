@@ -33,7 +33,7 @@ public class Outsourced extends Part {
      *
      * @return companyName
      */
-    public int getCompanyName() {
+    public String getCompanyName() {
         return companyName;
     }
 

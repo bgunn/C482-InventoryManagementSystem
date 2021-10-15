@@ -6,6 +6,11 @@ import javafx.collections.ObservableList;
 public class Inventory {
 
     /**
+     * Create a singleton Inventory object
+     */
+    private final static Inventory instance = new Inventory();
+
+    /**
      * Holds the list of parts
      */
     private ObservableList<Part> allParts = FXCollections.observableArrayList();
@@ -14,6 +19,18 @@ public class Inventory {
      * Holds the list of products
      */
     private ObservableList<Product> allProducts = FXCollections.observableArrayList();
+
+    /**
+     * Private constructor so that the class cannot be instantiated
+     */
+    private Inventory() { }
+
+    /**
+     * Public getter method for the singleton
+     */
+    public static Inventory getInstance() {
+        return instance;
+    }
 
     /**
      * Add a part to the parts list

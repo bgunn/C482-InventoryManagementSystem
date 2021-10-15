@@ -43,6 +43,6 @@ public class InHouse extends Part {
      * @param machineId
      */
     public void setMachineId(int machineId) {
-        this.machineID = machineId;
+        this.machineId = machineId;
     }
 }
