@@ -43,19 +43,24 @@
                                 <TextField fx:id="partSearch" promptText="Search by Part ID or Name" GridPane.columnIndex="1" />
                             </children>
                         </GridPane>
-                        <TableView prefHeight="185.0" prefWidth="412.0">
+                        <TableView fx:id="partsTable" prefHeight="185.0" prefWidth="412.0">
                             <columns>
-                                <TableColumn prefWidth="56.0" text="Part ID" />
-                                <TableColumn prefWidth="143.0" text="Part Name" />
-                                <TableColumn prefWidth="117.0" text="Inventory Level" />
-                                <TableColumn prefWidth="150.0" text="Price / Cost per Unit" />
+                                <TableColumn fx:id="partsIdCol" prefWidth="56.0" text="Part ID" />
+                                <TableColumn fx:id="partsNameCol" prefWidth="143.0" text="Part Name" />
+                                <TableColumn fx:id="partsStockCol" prefWidth="117.0" text="Inventory Level" />
+                                <TableColumn fx:id="partsPriceCol" prefWidth="150.0" text="Price / Cost per Unit" />
                             </columns>
                         </TableView>
-                        <HBox alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="412.0" spacing="15.0">
+                        <HBox alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="247.0" spacing="15.0">
                             <children>
+                                <Label fx:id="partsErrorLabel" prefHeight="30.0" prefWidth="233.0" textFill="RED">
+                                    <font>
+                                        <Font name="CiscoSans" size="18.0" />
+                                    </font>
+                                </Label>
                                 <Button mnemonicParsing="false" onAction="#onAddPartButtonClick" text="Add" />
-                                <Button mnemonicParsing="false" text="Modify" />
-                                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="Delete" />
+                                <Button mnemonicParsing="false" onAction="#onModifyPartButtonClick" text="Modify" />
+                                <Button mnemonicParsing="false" onAction="#onDeletePartButtonClick" prefHeight="25.0" prefWidth="64.0" text="Delete" />
                             </children>
                             <padding>
                                 <Insets bottom="5.0" left="5.0" right="25.0" top="8.0" />
@@ -82,22 +87,22 @@
                                         <Font name="CiscoSans" size="14.0" />
                                     </font>
                                 </Label>
-                                <TextField fx:id="partSearch1" promptText="Search by Product ID or Name" GridPane.columnIndex="1" />
+                                <TextField fx:id="productSearch" promptText="Search by Product ID or Name" GridPane.columnIndex="1" />
                             </children>
                         </GridPane>
-                        <TableView prefHeight="185.0" prefWidth="457.0">
+                        <TableView fx:id="productsTable" prefHeight="185.0" prefWidth="457.0">
                             <columns>
-                                <TableColumn prefWidth="88.0" text="Product ID" />
-                                <TableColumn prefWidth="108.0" text="Product Name" />
-                                <TableColumn prefWidth="115.0" text="Inventory Level" />
-                                <TableColumn prefWidth="157.0" text="Price / Cost per Unit" />
+                                <TableColumn fx:id="productsIdCol" prefWidth="88.0" text="Product ID" />
+                                <TableColumn fx:id="productsNameCol" prefWidth="108.0" text="Product Name" />
+                                <TableColumn fx:id="productsStockCol" prefWidth="115.0" text="Inventory Level" />
+                                <TableColumn fx:id="productsPriceCol" prefWidth="156.0" text="Price / Cost per Unit" />
                             </columns>
                         </TableView>
                         <HBox alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="412.0" spacing="15.0">
                             <children>
-                                <Button mnemonicParsing="false" onAction="#onAddPartButtonClick" text="Add" />
-                                <Button mnemonicParsing="false" text="Modify" />
-                                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="Delete" />
+                                <Button mnemonicParsing="false" onAction="#onAddProductButtonClick" text="Add" />
+                                <Button mnemonicParsing="false" onAction="#onModifyProductButtonClick" text="Modify" />
+                                <Button mnemonicParsing="false" onAction="#onDeleteProductButtonClick" prefHeight="25.0" prefWidth="64.0" text="Delete" />
                             </children>
                             <padding>
                                 <Insets bottom="5.0" left="5.0" right="25.0" top="8.0" />

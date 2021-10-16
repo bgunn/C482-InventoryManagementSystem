@@ -43,7 +43,6 @@ public class Main extends Application {
         inventory.addPart(new InHouse(2, "Wheel", 11.00, 16, 5, 20, 172));
         inventory.addPart(new InHouse(3, "Seat", 15.00, 10, 5, 20, 927));
 
-        inventory.addPart(new Outsourced(4, "Axle", 45.34, 5, 5, 20, "Acme Axles"));
         inventory.addPart(new Outsourced(5, "Bar ends", 12.50, 18, 5, 20, "U.S. bike Parts"));
         inventory.addPart(new Outsourced(6, "Bell", 5.99, 6, 5, 20, "Chimes-R-Us"));
 
