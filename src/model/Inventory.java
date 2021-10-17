@@ -79,28 +79,33 @@ public class Inventory {
     /**
      * Update a part by the inventory index
      */
-    public void updatePart(int index, Part selectedPart) {
+    public void updatePart(int index, Part part) {
 
     }
 
     /**
      * Update a product by the inventory index
      */
-    public void updateProduct(int index, Product selectedProduct) {
+    public void updateProduct(int index, Product product) {
 
     }
 
     /**
      * Delete a part
      */
-    public void deletePart(Part selectedPart) {
+    public Boolean deletePart(Part part) {
+        if (allParts.contains(part)) {
+            allParts.remove(part);
+            return true;
+        }
 
+        return false;
     }
 
     /**
      * Delete a product
      */
-    public void deleteProduct(Product selectedProduct) {
+    public void deleteProduct(Product product) {
 
     }
 

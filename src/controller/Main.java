@@ -8,10 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
 import javafx.scene.Node;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Inventory;
@@ -19,6 +16,7 @@ import model.Part;
 import model.Product;
 
 import java.io.IOException;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 /**
@@ -31,6 +29,16 @@ public class Main {
      * The inventory singleton
      */
     private Inventory inventory = Inventory.getInstance();
+
+    /**
+     * The currently selected part
+     */
+    private static Part part;
+
+    /**
+     * The currently selected product
+     */
+    private static Product product;
 
     /**
      * The part search text field
@@ -140,7 +148,7 @@ public class Main {
             if (filteredParts.size() == 0) {
                 partsErrorLabel.setText("No matching parts found!");
             } else {
-                partsErrorLabel.setText("");
+                clearErrors();
             }
         });
 
@@ -161,7 +169,7 @@ public class Main {
             if (filteredProducts.size() == 0) {
                 productsErrorLabel.setText("No matching products found!");
             } else {
-                productsErrorLabel.setText("");
+                clearErrors();
             }
 
         });
@@ -240,6 +248,15 @@ public class Main {
     }
 
     /**
+     * Returns the currently selected part
+     *
+     * @return part
+     */
+    public static Part getSelectedPart() {
+        return part;
+    }
+
+    /**
      * launches the add part form
      *
      * @param event Button click ActionEvent
@@ -270,6 +287,23 @@ public class Main {
     @FXML
     protected void onDeletePartButtonClick(ActionEvent event) {
 
+        clearErrors();
+
+        part = partsTable.getSelectionModel().getSelectedItem();
+
+        if (part == null) {
+            partsErrorLabel.setText("You must select a part");
+            return;
+        }
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirm Delete");
+        alert.setContentText("Are you sure you want to delete the selected part?");
+        Optional<ButtonType> confirmation = alert.showAndWait();
+
+        if (confirmation.isPresent() && confirmation.get() == ButtonType.OK) {
+            inventory.deletePart(part);
+        }
     }
 
     /**
@@ -313,5 +347,10 @@ public class Main {
     @FXML
     protected void onExitButtonClick(ActionEvent event) {
         System.exit(0);
+    }
+    
+    private void clearErrors() {
+        partsErrorLabel.setText("");
+        productsErrorLabel.setText("");
     }
 }

@@ -21,7 +21,7 @@ import model.Outsourced;
 
 import java.io.IOException;
 
-public class addPart {
+public class modifyPart {
 
     /**
      * In-house part source radio button
@@ -86,6 +86,16 @@ public class addPart {
     private Validator validator;
 
     /**
+     * Initialize data and fields
+     *
+     * @return void
+     */
+    @FXML
+    public void initialize() {
+
+    }
+
+    /**
      * Changes Part Type label when in-house Radio Button Clicked
      *
      * @param event In-House Radio Button click event
@@ -147,13 +157,13 @@ public class addPart {
     private Boolean doValidate() {
 
         validator = new Validator(
-            partNameField.getText(),
-            partPriceField.getText(),
-            partStockField.getText(),
-            partMinField.getText(),
-            partMaxField.getText(),
-            partSourceLabel.getText(),
-            partCustomField.getText()
+                partNameField.getText(),
+                partPriceField.getText(),
+                partStockField.getText(),
+                partMinField.getText(),
+                partMaxField.getText(),
+                partSourceLabel.getText(),
+                partCustomField.getText()
         );
 
         if (!validator.isValid()) {
@@ -186,3 +196,4 @@ public class addPart {
         screen.show();
     }
 }
+
