@@ -105,6 +105,20 @@ public class Inventory {
     }
 
     /**
+     * Get the next available part ID
+     */
+    public int getNextPartId() {
+        return getAllParts().size() + 101;
+    }
+
+    /**
+     * Get the next available product ID
+     */
+    public int getNextProductId() {
+        return getAllProducts().size() + 2001;
+    }
+
+    /**
      * Returns all parts from inventory
      */
     public ObservableList<Part> getAllParts() {

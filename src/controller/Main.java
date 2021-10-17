@@ -45,10 +45,16 @@ public class Main {
     private TextField productSearch;
 
     /**
-     * The parts error label
+     * The part section error label
      */
     @FXML
     private Label partsErrorLabel;
+
+    /**
+     * The product section error label
+     */
+    @FXML
+    private Label productsErrorLabel;
 
     /**
      * Parts table
@@ -132,7 +138,7 @@ public class Main {
             filteredParts.setPredicate(partPredicate(newValue));
 
             if (filteredParts.size() == 0) {
-                partsErrorLabel.setText("No parts found");
+                partsErrorLabel.setText("No matching parts found!");
             } else {
                 partsErrorLabel.setText("");
             }
@@ -149,10 +155,16 @@ public class Main {
 
         FilteredList<Product> filteredProducts = new FilteredList<>(inventory.getAllProducts(), b -> true);
 
-        productSearch.textProperty().addListener((observable, oldValue, newValue) ->
-                filteredProducts.setPredicate(productPredicate(newValue))
+        productSearch.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredProducts.setPredicate(productPredicate(newValue));
 
-        );
+            if (filteredProducts.size() == 0) {
+                productsErrorLabel.setText("No matching products found!");
+            } else {
+                productsErrorLabel.setText("");
+            }
+
+        });
 
         productsTable.setItems(filteredProducts);
     }
