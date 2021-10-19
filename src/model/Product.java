@@ -3,6 +3,11 @@ package model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+ * Products model class
+ *
+ * @author William Gunn
+ */
 public class Product {
 
     /**

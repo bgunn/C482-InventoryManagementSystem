@@ -1,7 +1,7 @@
 package model;
 
 /**
- * In House parts model class
+ * In-House parts model class
  *
  * @author William Gunn
  */

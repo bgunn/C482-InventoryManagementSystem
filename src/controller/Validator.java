@@ -2,10 +2,15 @@ package controller;
 
 import java.util.ArrayList;
 
+/**
+ * Class to handle validation logic for parts and products
+ *
+ * @author William Gunn
+ */
 public class Validator {
 
     /**
-     * Temporary variables to hold the typed form inputs
+     * Variables to hold the typed form inputs
      */
     private String name;
     private Double price;
@@ -14,6 +19,8 @@ public class Validator {
     private Integer max = -1;
     private Integer machineId;
     private String companyName;
+
+
     private Boolean valid = true;
 
     private ArrayList<String> messages = new ArrayList<String>();
@@ -54,6 +61,23 @@ public class Validator {
         return messages;
     }
 
+    /**
+     * <pre>
+     * The validation constructor
+     *
+     * Implements the validation logic for parts and products.
+     * When validating a product pass "Company" for the customField
+     * and any string for the customValue.
+     * </pre>
+     *
+     * @param name           The part or product name
+     * @param price          The part or product price
+     * @param stock          The part or product inventory
+     * @param min            The part or product minimum inventory
+     * @param max            The part or product maximum inventory
+     * @param customField    The part machine ID or company name field
+     * @param customValue    The part machine ID or company name value
+     */
     public Validator(String name, String price, String stock, String min, String max, String customField, String customValue) {
 
         this.name = name;
