@@ -146,7 +146,7 @@ public class Main {
             filteredParts.setPredicate(partPredicate(newValue));
 
             if (filteredParts.size() == 0) {
-                partsErrorLabel.setText("No matching parts found!");
+                partsError("No matching parts found!");
             } else {
                 clearErrors();
             }
@@ -167,7 +167,7 @@ public class Main {
             filteredProducts.setPredicate(productPredicate(newValue));
 
             if (filteredProducts.size() == 0) {
-                productsErrorLabel.setText("No matching products found!");
+                productsError("No matching products found!");
             } else {
                 clearErrors();
             }
@@ -239,12 +239,28 @@ public class Main {
      * @param view  The name of the view to load
      * @return void
      */
-    private void switchScenes(ActionEvent event, String view, String title) throws IOException {
-        Stage screen = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Parent scene = FXMLLoader.load(getClass().getResource("/view/" + view + ".fxml"));
-        screen.setTitle(title);
-        screen.setScene(new Scene(scene));
-        screen.show();
+    private void switchScenes(ActionEvent event, String view, String title) {
+
+        boolean error = false;
+
+        try {
+            Stage screen = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Parent scene = FXMLLoader.load(getClass().getResource("/view/" + view + ".fxml"));
+            screen.setTitle(title);
+            screen.setScene(new Scene(scene));
+            screen.show();
+        } catch (IOException ioe) {
+            error = true;
+        } catch (Exception e) {
+            error = true;
+        }
+
+        if (error) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Unexpected Error");
+            alert.setContentText("There was an unexpected error!");
+            alert.showAndWait();
+        }
     }
 
     /**
@@ -257,10 +273,18 @@ public class Main {
     }
 
     /**
+     * Returns the currently selected product
+     *
+     * @return part
+     */
+    public static Product getSelectedProduct() {
+        return product;
+    }
+
+    /**
      * launches the add part form
      *
      * @param event Button click ActionEvent
-     * @return void
      */
     @FXML
     protected void onAddPartButtonClick(ActionEvent event) throws IOException {
@@ -271,10 +295,19 @@ public class Main {
      * launches the modify part form for the selected part
      *
      * @param event Button click ActionEvent
-     * @return void
      */
     @FXML
-    protected void onModifyPartButtonClick(ActionEvent event) throws IOException {
+    protected void onModifyPartButtonClick(ActionEvent event) {
+
+        clearErrors();
+
+        part = partsTable.getSelectionModel().getSelectedItem();
+
+        if (part == null) {
+            partsError("You must select a part");
+            return;
+        }
+
         switchScenes(event, "modifyPart", "Modify Part");
     }
 
@@ -292,7 +325,7 @@ public class Main {
         part = partsTable.getSelectionModel().getSelectedItem();
 
         if (part == null) {
-            partsErrorLabel.setText("You must select a part");
+            partsError("You must select a part");
             return;
         }
 
@@ -310,10 +343,9 @@ public class Main {
      * launches the add product form
      *
      * @param event Button click ActionEvent
-     * @return void
      */
     @FXML
-    protected void onAddProductButtonClick(ActionEvent event) throws IOException {
+    protected void onAddProductButtonClick(ActionEvent event) {
         switchScenes(event, "addProduct", "Add Product");
     }
 
@@ -321,10 +353,19 @@ public class Main {
      * launches the modify part form for the selected product
      *
      * @param event Button click ActionEvent
-     * @return void
      */
     @FXML
-    protected void onModifyProductButtonClick(ActionEvent event) throws IOException {
+    protected void onModifyProductButtonClick(ActionEvent event) {
+
+        clearErrors();
+
+        product = productsTable.getSelectionModel().getSelectedItem();
+
+        if (product == null) {
+            productsError("You must select a product");
+            return;
+        }
+
         switchScenes(event, "modifyProduct", "Modify Product");
     }
 
@@ -332,7 +373,6 @@ public class Main {
      * Deletes the selected product from the inventory
      *
      * @param event Button click ActionEvent
-     * @return void
      */
     @FXML
     protected void onDeleteProductButtonClick(ActionEvent event) {
@@ -348,7 +388,17 @@ public class Main {
     protected void onExitButtonClick(ActionEvent event) {
         System.exit(0);
     }
-    
+
+    private void partsError(String msg) {
+        clearErrors();
+        partsErrorLabel.setText(msg);
+    }
+
+    private void productsError(String msg) {
+        clearErrors();
+        productsErrorLabel.setText(msg);
+    }
+
     private void clearErrors() {
         partsErrorLabel.setText("");
         productsErrorLabel.setText("");

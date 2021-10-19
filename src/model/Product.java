@@ -173,7 +173,7 @@ public class Product {
      * @param part
      */
     public void addAssociatedPart(Part part) {
-
+        associatedParts.add(part);
     }
 
     /**
@@ -181,14 +181,14 @@ public class Product {
      *
      * @param part
      */
-    public Boolean deleteAssociatedPart(Part selectedAssociatedPart) {
-        return true;
+    public void deleteAssociatedPart(Part part) {
+        associatedParts.remove(part);
     }
 
     /**
      * Get all parts associated with the product
      */
     public ObservableList<Part> getAllAssociatedParts() {
-        return null;
+        return associatedParts;
     }
 }

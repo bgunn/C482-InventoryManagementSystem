@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -86,6 +87,16 @@ public class addPart {
     private Validator validator;
 
     /**
+     * Initialization method
+     *
+     * @return void
+     */
+    @FXML
+    public void initialize() {
+        Platform.runLater(() -> partNameField.requestFocus());
+    }
+
+    /**
      * Changes Part Type label when in-house Radio Button Clicked
      *
      * @param event In-House Radio Button click event
@@ -131,7 +142,7 @@ public class addPart {
             if (inhouseRadioButton.isSelected()) {
                 inv.addPart(new InHouse(inv.getNextPartId(), name, price, stock, min, max, validator.getMachineId()));
             } else {
-                inv.addPart(new Outsourced(inv.getNextProductId(), name, price, stock, min, max, validator.getCompanyName()));
+                inv.addPart(new Outsourced(inv.getNextPartId(), name, price, stock, min, max, validator.getCompanyName()));
             }
 
             onCancelButtonClick(event);
@@ -144,6 +155,11 @@ public class addPart {
         }
     }
 
+    /**
+     * Instantiates the Validator class and sets any validation error messages.
+     *
+     * @return boolean
+     */
     private Boolean doValidate() {
 
         validator = new Validator(
@@ -160,7 +176,7 @@ public class addPart {
             for (String msg : validator.getMessages()) {
                 Text text = new Text(msg + "   \n");
                 text.setFill(Color.RED);
-                text.setFont(Font.font("Helvetica", FontWeight.BOLD, 15));
+                text.setFont(Font.font("CiscoSans", FontWeight.BOLD, 15));
                 addPartMessageText.getChildren().addAll(text);
             }
 

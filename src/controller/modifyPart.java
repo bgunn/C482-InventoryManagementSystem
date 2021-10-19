@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import model.InHouse;
 import model.Inventory;
 import model.Outsourced;
+import model.Part;
 
 import java.io.IOException;
 
@@ -30,10 +31,22 @@ public class modifyPart {
     private RadioButton inhouseRadioButton;
 
     /**
+     * Outsourced part source radio button
+     */
+    @FXML
+    private RadioButton outsourcedRadioButton;
+
+    /**
      * Part source Label
      */
     @FXML
     private Label partSourceLabel;
+
+    /**
+     * Part ID field
+     */
+    @FXML
+    private TextField partIdField;
 
     /**
      * Part name field
@@ -86,13 +99,34 @@ public class modifyPart {
     private Validator validator;
 
     /**
-     * Initialize data and fields
+     * holds the selected part from the main screen table view
+     */
+    private Part part;
+
+    /**
+     * Ppopulate the form fields with data from the selected part
      *
      * @return void
      */
     @FXML
     public void initialize() {
 
+        part = Main.getSelectedPart();
+
+        if (part instanceof Outsourced) {
+            outsourcedRadioButton.setSelected(true);
+            onOutsourcedRadioSelect(new ActionEvent());
+            partCustomField.setText(((Outsourced) part).getCompanyName());
+        } else {
+            partCustomField.setText(String.valueOf(((InHouse) part).getMachineId()));
+        }
+
+        partIdField.setText(String.valueOf(part.getId()));
+        partNameField.setText(part.getName());
+        partStockField.setText(String.valueOf(part.getStock()));
+        partPriceField.setText(String.valueOf(part.getPrice()));
+        partMaxField.setText(String.valueOf(part.getMax()));
+        partMinField.setText(String.valueOf(part.getMin()));
     }
 
     /**
@@ -128,20 +162,18 @@ public class modifyPart {
 
         if (!doValidate()) return;
 
-        Inventory inv = Inventory.getInstance();
-
         try {
 
-            String name = validator.getName();
-            double price = validator.getPrice();
-            int stock = validator.getStock();
-            int min = validator.getMin();
-            int max = validator.getMax();
+            part.setName(validator.getName());
+            part.setPrice(validator.getPrice());
+            part.setStock(validator.getStock());
+            part.setMin(validator.getMin());
+            part.setMax(validator.getMax());
 
             if (inhouseRadioButton.isSelected()) {
-                inv.addPart(new InHouse(inv.getNextPartId(), name, price, stock, min, max, validator.getMachineId()));
+                ((InHouse) part).setMachineId(validator.getMachineId());
             } else {
-                inv.addPart(new Outsourced(inv.getNextProductId(), name, price, stock, min, max, validator.getCompanyName()));
+                ((Outsourced) part).setCompanyName(validator.getCompanyName());
             }
 
             onCancelButtonClick(event);
@@ -149,7 +181,7 @@ public class modifyPart {
         } catch (Exception e) {
             Text text = new Text("An unknown error occurred!   \n");
             text.setFill(Color.RED);
-            text.setFont(Font.font("Helvetica", FontWeight.BOLD, 15));
+            text.setFont(Font.font("CiscoSans", FontWeight.BOLD, 15));
             addPartMessageText.getChildren().addAll(text);
         }
     }
