@@ -105,8 +105,13 @@ public class Inventory {
     /**
      * Delete a product
      */
-    public void deleteProduct(Product product) {
+    public Boolean deleteProduct(Product product) {
+        if (allProducts.contains(product)) {
+            allProducts.remove(product);
+            return true;
+        }
 
+        return false;
     }
 
     /**

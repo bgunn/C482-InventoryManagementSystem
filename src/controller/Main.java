@@ -377,6 +377,23 @@ public class Main {
     @FXML
     protected void onDeleteProductButtonClick(ActionEvent event) {
 
+        clearErrors();
+
+        product = productsTable.getSelectionModel().getSelectedItem();
+
+        if (product == null) {
+            partsError("You must select a part");
+            return;
+        }
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirm Delete");
+        alert.setContentText("Are you sure you want to delete the selected product?");
+        Optional<ButtonType> confirmation = alert.showAndWait();
+
+        if (confirmation.isPresent() && confirmation.get() == ButtonType.OK) {
+            inventory.deleteProduct(product);
+        }
     }
 
     /**
