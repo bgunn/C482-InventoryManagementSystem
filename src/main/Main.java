@@ -8,12 +8,17 @@ import javafx.stage.Stage;
 import model.*;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
+ * <pre>
  * Inventory management system main entry point
+ *
+ * FUTURE ENHANCEMENT
+ * The next version of this application should include a database to persist the parts and products inventory.
+ * The Apache Derby database would provide a good embedded solution to start with. Following that, the application
+ * could be updated to use a remote MySQL or PostgreSQL database.
+ * </pre>
+ *
  *
  * @author William Gunn
  */

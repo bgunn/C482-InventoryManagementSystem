@@ -298,7 +298,15 @@ public class modifyProduct {
     }
 
     /**
+     * <pre>
      * Saves the product in the inventory products collection
+     *
+     * RUNTIME ERROR
+     * On save the application was throwing a ConcurrentModificationException exception
+     * because I was looping through the associatedParts ObservableList to delete and re-add
+     * the associated parts. This was unnecessary because the associatedParts was fully updated
+     * as parts were added or removed. The fix was to just remove that code.
+     * </pre>
      *
      * @param event Save button clicked event
      */
@@ -329,9 +337,11 @@ public class modifyProduct {
     }
 
     /**
+     * <pre>
      * Instantiates the Validator class and sets any validation error messages.
      *
      * customField and customValue are not used for products so passing arbitrary valid values
+     *</pre>
      *
      * @return boolean
      */

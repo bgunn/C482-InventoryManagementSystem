@@ -315,9 +315,11 @@ public class addProduct {
     }
 
     /**
+     * <pre>
      * Instantiates the Validator class and sets any validation error messages.
      *
      * customField and customValue are not used for products so passing arbitrary valid values
+     *</pre>
      *
      * @return boolean
      */

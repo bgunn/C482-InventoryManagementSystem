@@ -67,10 +67,12 @@ public class addPart {
     private TextField partMinField;
 
     /**
+     * <pre>
      * Part custom field
      *
      * This field will hold the machine ID for in-house parts
      * and the company name for outsourced parts.
+     * </pre>
      */
     @FXML
     private TextField partCustomField;
