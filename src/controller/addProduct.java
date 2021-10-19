@@ -368,5 +368,6 @@ public class addProduct {
     private void clearErrors() {
         associatedPartsErrorLabel.setText("");
         partsErrorLabel.setText("");
+        addProductMessageText.getChildren().clear();
     }
 }
