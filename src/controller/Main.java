@@ -382,7 +382,11 @@ public class Main {
         product = productsTable.getSelectionModel().getSelectedItem();
 
         if (product == null) {
-            partsError("You must select a part");
+            productsError("You must select a product");
+            return;
+        } else if (product.getAllAssociatedParts().size() > 0) {
+            productsError("Product has associated parts");
+            //productsError("The selected product has associated parts");
             return;
         }
 
